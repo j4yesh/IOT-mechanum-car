@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Joystick</title>
+    <style>
+      .c1 {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: #313743;
+        margin: 5px;
+        transform-origin: center center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+      }
+      .c2 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        background-color: #e1e1e1;
+        border-radius: 50%;
+        border: 8px solid white;
+        transform-origin: center center;
+      }
+      body {
+        background-color: #070b13;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="c1" id="c1">
+        <div class="c2" id="c2"></div>
+      </div>
+    </div>
+    <script>
+      const c1 = document.getElementById("c1");
+      const c2 = document.getElementById("c2");
+      const c1Rect = c1.getBoundingClientRect();
+      const c1Center = {
+        x: c1Rect.left + c1Rect.width / 2,
+        y: c1Rect.top + c1Rect.height / 2,
+      };
+      console.log(c1Center.x+' | '+c1Center.y);
+      c1.addEventListener("touchmove", (event) => {
+        event.preventDefault();
+        const touch = event.targetTouches[0];
+        const dx = touch.pageX - c1Center.x;
+        const dy = touch.pageY - c1Center.y;
+        const angle = Math.atan2(dy, dx);
+        const distance = Math.min(Math.hypot(dx, dy), c1Rect.width / 2);
+        console.log(Math.hypot(dx, dy));
+        const x = c1Center.x + Math.cos(angle) * distance;
+        const y = c1Center.y + Math.sin(angle) * distance;
+        const p=x - c1Center.x-(c1Rect.width / 2)+18;
+        const q=y - c1Center.y-(c1Rect.height/2)+18;
+        console.log((p)+' '+(q));
+        c2.style.transform = `translate(${p}px, ${q}px)`;
+      });
+      c1.addEventListener("touchend",(event)=>{
+        console.log('touch removed!');
+        c2.style.transform = `translate(${-33}px, ${-33}px)`;
+      })
+    </script>
+  </body>
+</html>
