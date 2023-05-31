@@ -1,10 +1,10 @@
-#include <WiFi.h>
+#include <ESP8266WiFi.h>
 
 
-const int LF = 4; // GPIO 4
-const int LB = 0; // GPIO 0
-const int RF = 2; // GPIO 2
-const int RB = 14; // GPIO 14
+#define LF D0 // GPIO 4
+#define LB D1 // GPIO 0
+#define RF D2 // GPIO 2
+#define RB D3 // GPIO 14
 
 // Replace with your network credentials
 const char* ssid = "realme 8j";
@@ -32,7 +32,7 @@ unsigned long previousTime = 0;
 const long timeoutTime = 2000;
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   // Initialize the output variables as outputs
   pinMode(output26, OUTPUT);
   pinMode(output27, OUTPUT);
