@@ -11,8 +11,8 @@
 char auth[] = BLYNK_AUTH_TOKEN;
 // char ssid[] = "realme 8j";  // Enter your Wifi Username
 // char pass[] = "rick_astly";  // Enter your Wifi password
-char ssid[] = "Spectra7";  // Enter your Wifi Username
-char pass[] = "xtatic@13";  // Enter your Wifi password
+char ssid[] = "realme 8j";  // Enter your Wifi Username
+char pass[] = "rick_astly";  // Enter your Wifi password
 
 BlynkTimer timer;
 
