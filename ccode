@@ -1,0 +1,24 @@
+const int tl1 = 2;
+const int tl2 = 3;
+const int tr1 = 4;
+const int tr2 = 5;
+void setup() {
+  Serial.begin(9600);
+  pinMode(tl1, OUTPUT);
+  pinMode(tl2, OUTPUT);
+  pinMode(tr1, OUTPUT);
+  pinMode(tr2, OUTPUT);
+}
+
+void loop() {
+  delay(1000);
+  digitalWrite(tl1, HIGH); // Swap HIGH and LOW here
+  digitalWrite(tl2, LOW);  // Swap HIGH and LOW here
+   digitalWrite(tr1, HIGH); // Swap HIGH and LOW here
+  digitalWrite(tr2, LOW);  // Swap HIGH and LOW here
+  delay(1000);
+  digitalWrite(tl1, LOW);  // Swap HIGH and LOW here
+  digitalWrite(tl2, HIGH); // Swap HIGH and LOW here
+  digitalWrite(tr1, LOW);  // Swap HIGH and LOW here
+  digitalWrite(tr2, HIGH); // Swap HIGH and LOW here
+}
