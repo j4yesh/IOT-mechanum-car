@@ -1,24 +1,55 @@
-const int tl1 = 2;
-const int tl2 = 3;
-const int tr1 = 4;
-const int tr2 = 5;
+#define BLYNK_PRINT Serial
+#include <BlynkSimpleRPiPico.h>
+
+#define BLYNK_AUTH_TOKEN "qAFoSlFMRHIacSXfirGgE4EwTZFw0sT4"
+
+char auth[] = BLYNK_AUTH_TOKEN;
+
+const int tl1 = 2;  // Use GPIO2 for tl1
+const int tl2 = 3;  // Use GPIO3 for tl2
+const int tr1 = 4;  // Use GPIO4 for tr1
+const int tr2 = 5;  // Use GPIO5 for tr2
+
 void setup() {
   Serial.begin(9600);
+  Blynk.begin(auth);
   pinMode(tl1, OUTPUT);
   pinMode(tl2, OUTPUT);
   pinMode(tr1, OUTPUT);
   pinMode(tr2, OUTPUT);
 }
 
+void stop() {
+   digitalWrite(tl1, LOW); 
+   digitalWrite(tl2, LOW);  
+   digitalWrite(tr1, LOW); 
+   digitalWrite(tr2, LOW);  
+}
+
+void forward() {
+  digitalWrite(tl1, HIGH); 
+  digitalWrite(tl2, LOW);  
+  digitalWrite(tr1, HIGH); 
+  digitalWrite(tr2, LOW);  
+}
+
+void backward() {
+  digitalWrite(tl1, LOW);  
+  digitalWrite(tl2, HIGH); 
+  digitalWrite(tr1, LOW);  
+  digitalWrite(tr2, HIGH); 
+}
+
+BLYNK_WRITE(V0) {
+  // When virtual pin V0 changes, call forward()
+  forward();
+}
+
+BLYNK_WRITE(V1) {
+  // When virtual pin V1 changes, call stop()
+  stop();
+}
+
 void loop() {
-  delay(1000);
-  digitalWrite(tl1, HIGH); // Swap HIGH and LOW here
-  digitalWrite(tl2, LOW);  // Swap HIGH and LOW here
-   digitalWrite(tr1, HIGH); // Swap HIGH and LOW here
-  digitalWrite(tr2, LOW);  // Swap HIGH and LOW here
-  delay(1000);
-  digitalWrite(tl1, LOW);  // Swap HIGH and LOW here
-  digitalWrite(tl2, HIGH); // Swap HIGH and LOW here
-  digitalWrite(tr1, LOW);  // Swap HIGH and LOW here
-  digitalWrite(tr2, HIGH); // Swap HIGH and LOW here
+  Blynk.run();
 }
