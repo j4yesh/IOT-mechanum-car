@@ -1,0 +1,35 @@
+from machine import Pin
+from time import sleep
+import blynklib as BlynkLib
+import network
+
+led= machine.Pin('LED',Pin.OUT)
+tl1= machine.Pin(6,Pin.OUT)
+tl2= machine.Pin(7,Pin.OUT)
+
+tl1.on()
+tl2.off()
+
+blynk = BlynkLib.Blynk("qAFoSlFMRHIacSXfirGgE4EwTZFw0sT4")
+
+# Connect to Wi-Fi
+wifi_ssid = "realme 8j"
+wifi_password = "rick_astly"
+sta_if = network.WLAN(network.STA_IF)
+sta_if.active(True)
+sta_if.connect(wifi_ssid, wifi_password)
+while not sta_if.isconnected():
+    pass
+
+#@blynk.VIRTUAL_WRITE(0)
+def v0_write_handler(value):
+    if value[0] == '1':
+        led.value(1)
+        led.on()
+    else:
+        led.off()
+        led.value(0)
+
+while True:
+    blynk.run()
+
